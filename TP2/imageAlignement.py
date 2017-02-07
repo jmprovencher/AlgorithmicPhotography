@@ -28,6 +28,7 @@ def align_images(img1, img2):
     x2, y2 = tuple(zip(*plt.ginput(2)))
     cx2, cy2 = np.mean(x2), np.mean(y2)
 
+    plt.close()
     tx = int(np.round((w1 / 2 - cx1) * 2))
     img1 = translate_image(img1, tx, axis=1)
     ty = int(np.round((h1 / 2 - cy1) * 2))
