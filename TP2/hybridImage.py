@@ -9,7 +9,7 @@ from TP2.imageAlignement import norm_image
 
 
 def lowPass(imageMatrix, sigma):
-    lowpass_img = cv2.GaussianBlur(imageMatrix, (91, 91), sigma)
+    lowpass_img = cv2.GaussianBlur(imageMatrix, (41, 41), sigma)
     lowpass_img = lowpass_img.astype(np.int)
     return lowpass_img
 
@@ -25,4 +25,4 @@ def hybridImage(img1, img2, cutoff_low, cutoff_high):
     img1 = lowPass(img1, cutoff_low)
     print(img2)
     print(img1)
-    return cv2.addWeighted(img1, 1, img2, 0.4, 0)
+    return cv2.addWeighted(img1, 1, img2, 0.4, 0), img1, img2
