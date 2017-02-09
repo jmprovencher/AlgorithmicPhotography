@@ -52,7 +52,7 @@ def align_images(img1, img2):
     theta2 = np.arctan2(-(y2[1] - y2[0]), x2[1] - x2[0])
     dtheta = theta2 - theta1
     img1 = misc.imrotate(img1, dtheta * 180 / np.pi, 'bilinear')
-    img1 = norm_image(img1)  # imrotate semble remettre l'image en [0-255]
+     # imrotate semble remettre l'image en [0-255]
 
     h1, w1 = img1.shape
     h2, w2 = img2.shape

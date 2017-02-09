@@ -2,23 +2,23 @@ import cv2
 from matplotlib import pyplot as plt
 from TP2.imageAlignement import align_images, norm_image
 from TP2.hybridImage import hybridImage
-albert = cv2.imread('Albert_Einstein.png', cv2.IMREAD_GRAYSCALE)
-marilyn = cv2.imread('Marilyn_Monroe.png', cv2.IMREAD_GRAYSCALE)
+from scipy import ndimage, misc
+import numpy
 
-# plt.imshow(albert, cmap='gray')
-# plt.show()
-# plt.imshow(marilyn, cmap='gray')
-# plt.show()
+albert = cv2.imread('hillary_clinton.jpg', cv2.IMREAD_GRAYSCALE)
+marilyn = cv2.imread('donald_trump.jpg', cv2.IMREAD_GRAYSCALE)
 
-arbitrary_value_1 = 25
-arbitrary_value_2 = 10
+arbitrary_value_1 = 2
+arbitrary_value_2 = 100
 cutoff_low = arbitrary_value_1
 cutoff_high = arbitrary_value_2
 
-
 albert, marilyn = align_images(albert, marilyn)
-hybrid_img = hybridImage(albert, marilyn, cutoff_low, cutoff_high)
-plt.imshow(hybrid_img, cmap="gray")
+hybrid_img = hybridImage(marilyn, albert, cutoff_low, cutoff_high)
+
+hybrid_img = cv2.convertScaleAbs(hybrid_img)
+misc.imsave('hybrid4.png', hybrid_img)
+
+plt.imshow(hybrid_img, cmap='gray')
+plt.title('hybrid image')
 plt.show()
-
-
