@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Photographie Algorithmique - TP1 - Jean-Michel Provencher</title>
+    <title>Photographie Algorithmique - TP2 - Jean-Michel Provencher</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -18,6 +18,22 @@
     MathJax.Hub.Config({
       tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], equationNumbers: { autoNumber: "AMS" }}
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -40,14 +56,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Photographie Algorithmique - TP1</a>
+            <a class="navbar-brand" href="#">Photographie Algorithmique - TP2</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="#intro">Intro</a></li>
-                <li><a href="#Q1">Question 1</a></li>
-                <li><a href="#Q2">Question 2</a></li>
-                <li><a href="#Q3">Question 3</a></li>
+                <li><a href="#Q0">Partie 0</a></li>
+                <li><a href="#Q1">Partie 1</a></li>
+                <li><a href="#Q2">Partie 2</a></li>
+                <li><a href="#Q3">Partie 3</a></li>
                 <li><a href="#Results_align">Résultats d'alignement</a></li>
             </ul>
         </div><!--/.nav-collapse -->
@@ -57,9 +74,8 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-        <h1>Colorisation de l'Empire Russe</h1>
-        <h2>Sergei Mikhailovich Prokudin-Gorskii (1863-1944)</h2>
-        <p>Alignement et restauration d'images avec filtre RGB</p>
+        <h1>On s'amuse en fréquences</h1>
+        <p>Création et assemblage d'images avec analyse de fréquences</p>
     </div>
 </div>
 
@@ -68,374 +84,466 @@
     <!-- Example row of columns -->
     <div class="row">
         <div class="col-md-4">
-            <h2>L'Empire Russe</h2>
-            <p>Au courant du siècle dernier, Sergei Mikhailovich Prokudin-Gorskii (1863-1944) pris de nombreuses images
-                en utilisant des filtres Rouge, vert et bleu pour chaque photopraphie prise.</p>
+            <h2>On s'amuse en fréquences</h2>
+            <p>Lors de ce travail, il sera question d'utiliser différentes articles de la littérature en photographie
+                algorithmique afin de faire du mélange d'images en fréquences.</p>
             <img style="max-width: 100%;max-height: 300px"
-                 src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Sergei-Prokudin-Gorski-Larg.jpg"/>
-            <p><a class="btn btn-default" href="https://fr.wikipedia.org/wiki/Sergue%C3%AF_Prokoudine-Gorski"
-                  role="button">Voir sa page wikipédia</a></p>
+                 src="images/Albert_Einstein.png"/>
+            <p>Image classique utilisée dans ce genre de travail</p>
         </div>
         <div class="col-md-4">
             <h2>Description du projet</h2>
-            <p>Le but du projet est de tenter de recréer, à partir de plaques de verre numérisées de la collection
-                Prokudin-Gorskii, des images couleurs avec le moins d'artéfacts possible. Tout d'abord, les alignements
-                seront fait avec des images en résolution réduite et en format .jpg en utilisant la technique de somme
-                de
-                différences de carré.</p>
-            <p>Ensuite, cette technique sera utilisée, combinée avec une approche à échelles
-                multiples, afin de minimiser les temps de calculs sur les images originales en format .tif.</p>
+            <p>Le but du projet sera de recréer différentes images à partir d'une paire d'image différentes. Ainsi, il
+                sera possible d'assembler des paires d'images à partir de leurs analyses en fréquence.</p>
+            <p>Afin de parvenir à effectuer une analyse exhaustive en fréquence, des filtres gaussiens seront utilisés
+                afin de pouvoir générer des filtres passe-bas et des filtres passe-haut pour les différentes images</p>
         </div>
         <div class="col-md-4">
             <h2>Code</h2>
-            <p>Le code est disponible dans l'archive dans le dossier code(<a href="../code/q1.py">Question 1</a>,<a
-                    href="../code/q2.py">Question 2</a>, <a href="../code/q3.py">Question 3</a>,<a
-                    href="../code/utils.py">Fonctions
-                utilitaires</a>)
+            <p>Le code est disponible dans l'archive dans le dossier code(<a href="../code/part1.py">Partie 1</a>,<a
+                    href="../code/part2.py">Partie 2</a>, <a href="../code/part3.py">Question 3</a>,<a
+                    href="../code/part0.py">Partie 0</a>)
         </div>
     </div>
 
     <hr>
 
-    <a name="Q1"></a>
-    <h2>Question 1</h2>
+    <a name="Q0"></a>
+    <h2>Question 0</h2>
 
     <p>
-        Pour aligner les différents canaux de couleurs, il est nécessaire d'utiliser une technique permettant de trouver
-        la qualité de l'alignement entre les images. Dans le cas présent, la technique de somme de différence de carré a
-        été choisie</p>
-    $$ \epsilon_{\hat{Y},Y} = \sum_{i=1}^{n}(\hat{Y}_i - Y_i)^2 \quad ,$$
-    <p>où $ n $ est le nombre de pixels utilisés pour comparé les deux images, $ Y $ et $ \hat{Y} $ sont les images
-        comparées et $\epsilon_{\hat{Y}Y} $ la somme des différences au carré.</p>
+        Pour la partie 0, il suffit d'ouvrir deux images et d'appliquer un filtre de "sharpening" à celles-ci. Le filtre
+        utilisé dans le cas présent est un filtre Kernel de la forme suivante :
+        <script src=
+                        "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+        </script>
+        \[\begin{bmatrix}
+        -1 & -1 & -1\\
+        -1 & 9 & -1\\
+        -1 & -1 & -1\\
+        \end{bmatrix}\]
 
-    <p>
-        Afin d'obtenir l'image avec le meilleur alignement, il est nécessaire de rechercher la translation à effectuer
-        avec les canaux vert et bleu par rapport au canal rouge afin d'obtenir la somme de différence de carré la plus
-        petite possible.
     </p>
+    <p>Dans le cas présent, l'image semble bien-entendu améliorer artificiellement. Afin d'éviter ce phénomène, il
+        aurait pu être intéressant d'utiliser une approximation gaussienne afin de construire le filtre Kernel dans le
+        but d'obtenir un filtre "Edge Enhancement".</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/nfl_1.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/nfl_1.jpg" class="img-responsive">
+            </a>Image originale
+        </div>
+        <div class="col-md-6">
+            <a href="images/nfl_1_sharpened.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/nfl_1_sharpened.png" class="img-responsive">
+            </a>Image avec détails augmentés
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/nfl_2.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/nfl_2.jpg" class="img-responsive">
+            </a>Image originale
+        </div>
+        <div class="col-md-6">
+            <a href="images/nfl_2_sharpened.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/nfl_2_sharpened.png" class="img-responsive">
+            </a>Image avec détails augmentés
+        </div>
+    </div>
+
+
+    <a name="Q1"></a>
+    <h2>Partie 1 - Images hybrides</h2>
+
+    <p>Tout d'abord, pour cette partie, la génération d'une image hybride avec Albert Einstein et Marilyn Monroe était
+        demandée. Afin de réalisé une telle image selon l'article <a
+                href="http://cvcl.mit.edu/publications/OlivaTorralb_Hybrid_Siggraph06.pdf">SIGGRAPH 2006 écrit par
+            Oliva, Torralba et Schyns</a>, il est nécessaire de créer une filtre passe-bas acceptant une fréquence de
+        coupure en paramètre. Ensuite, il est possible d'appliquer ce filtre passe-bas à la première image que nous
+        souhaitons utiliser afin d'obtenir les basses fréquences de celle-ci. Dans le cas de la seconde image, il suffit
+        d'appliquer encore une fois le filtre passe-bas, puis, de soustraire le résultat de ce filtre à la même image
+        afin d'obtenir un résultat contenant uniquement les hautes fréquences de la deuxième image.</p>
+    $$ H = I1 · G1 + I2 ·(1 − G2)$$
+    <p>où $ H $ est l'image hybride résultante, $ I1 $ et $ I2 $ sont les images
+        utilisée et $ G1 $ et $ G2 $ les filtres passe-haut et passe-bas.</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <a href="images/Albert_Einstein.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/Albert_Einstein.png" class="img-responsive">
+            </a>Image originale d'Albert Einstein
+        </div>
+        <div class="col-md-4">
+            <a href="images/Marilyn_Monroe.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/Marilyn_Monroe.png" class="img-responsive">
+            </a>Image originale de Marilyn Monroe
+        </div>
+        <div class="col-md-4">
+            <a href="images/hybrid1.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/hybrid1.png" class="img-responsive">
+            </a>Image hybride résultante
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <a href="http://cdn.abclocal.go.com/content/kgo/images/cms/888907_1280x720.jpg" data-toggle="lightbox"
+               data-title="" class=""
+               data-gallery="ra">
+                <img src="images/tom_brady.jpg" class="img-responsive">
+            </a>Image originale de Tom Brady
+        </div>
+        <div class="col-md-4">
+            <a href="http://s3.india.com/wp-content/uploads/2016/01/lady-gaga.jpg" data-toggle="lightbox" data-title=""
+               class=""
+               data-gallery="ra">
+                <img src="images/lady_gaga.jpg" class="img-responsive">
+            </a>Image originale de Lady Gaga
+        </div>
+        <div class="col-md-4">
+            <a href="images/hybrid2.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/hybrid2.png" class="img-responsive">
+            </a>Image hybride résultante
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="http://www.patriots.com/sites/patriots.com/files/styles/312x312/public/512x512-2014_0014_edelman_julian.png?itok=AGLgAMjq&timestamp=1439435952
+" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/julian_edelman.png" class="img-responsive">
+            </a>Image originale de Julian Edelman
+        </div>
+        <div class="col-md-4">
+            <a href="http://www.patriots.com/sites/patriots.com/files/styles/312x312/public/2016_amendola_headshot_0.png?itok=lLZdR2Gh&timestamp=1464728930
+" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/danny_amendola.png" class="img-responsive">
+            </a>Image originale de Danny Amendola
+        </div>
+        <div class="col-md-4">
+            <a href="images/hybrid1.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/hybrid3.png" class="img-responsive">
+            </a>Image hybride résultante
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="https://s-media-cache-ak0.pinimg.com/564x/ac/50/54/ac505457a827800802d6f708ae73ea36.jpg
+" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/hillary_clinton.jpg" class="img-responsive">
+            </a>Image originale de Hillary Clinton
+        </div>
+        <div class="col-md-4">
+            <a href="http://american3rdposition.com/wp-content/uploads/donald-trump-portrait.jpg
+" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/donald_trump.jpg" class="img-responsive">
+            </a>Image originale de Donald Trump
+        </div>
+        <div class="col-md-4">
+            <a href="images/hybrid4.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/hybrid4.png" class="img-responsive">
+            </a>Image hybride résultante
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="http://pm.gc.ca/sites/pm/files/media/ministers/pm_trudeau_230x306_v3.jpg
+" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/justin_trudeau.jpg" class="img-responsive">
+            </a>Image originale de Justin Trudeau
+        </div>
+        <div class="col-md-4">
+            <a href="http://vision.gel.ulaval.ca/~jflalonde/projects/compphototutorial/img/headshot-jflalonde-300.jpg
+" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/jeff_lalonde.jpg" class="img-responsive">
+            </a>Image originale de Jean-François Lalonde
+        </div>
+        <div class="col-md-4">
+            <a href="images/hybrid5.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/hybrid5.png" class="img-responsive">
+            </a>Image hybride résultante
+        </div>
+    </div>
+    <div class="row">
+        <h2>Analyse en fréquences de l'image hybride entre Justin Trudeau et Jean-François Lalonde</h2>
+        <a style="text-align: center" href="images/figure_1.png" data-toggle="lightbox" data-title="" class=""
+           data-gallery="ra">
+            <img src="images/figure_1.png" class="img-responsive">
+        </a>
+        <h4 style="text-align: center">Figure 1: Tableau des amplitudes des transformées de Fourier</h4>
+    </div>
 
 
     <a name="Q2"></a>
-    <h2>Question 2</h2>
+    <h2>Partie 2 - Piles gaussiennes et laplaciennes</h2>
 
-    <p>Le principal problème avec la technique utilisée à la <a href="#Q1">Question 1</a> est la performance de
-        l'algorihme. En effet, plus la résolution est grande, plus il sera long de trouver la somme de différence de
-        carré minimale pour aligner les images. Afin de remédier à ce problème, la technique d'alignement à échelles
-        multiples permet de résoudre une partie du problème. </p>
-    <p>Avec l'approche à échelle multiple, on diminue la taille des images avec un certain facteur permertant de réduire
-        de façon importante le temps de calcul. Par la suite, la recherche de la somme de différence de carré minimale
-        est effectuée sur cette image de plus basse résolution. Finalement, une fois la translation en x et en y trouvée
-        à l'aide de la SDC, on effectue cette translation multipliée par le facteur précèdant sur l'image de taille
-        originale. </p>
+    <p>Dans cette partie, des piles gaussiennes et laplaciennes sont crées afin de conserver des images à différentes
+        valeurs de sigma pour les filtres passe-haut et passe bas. La pile gaussienne est créée en appliquant un filtre
+        passe-bas à l'image originale à différente puissance de 2. La pile laplacienne, quant-à-elle est créée en
+        soustrayant la pile gaussienne précédente à l'image originale.</p>
 
-    <a name="Q3"></a>
-    <h2>Question 3</h2>
-
-    <a name="Results_align"></a>
-    <h2>Résultats d'alignement</h2>
-    <p>Voici l'alignement des images pour les différentes techniques utilisées. Les déplacements présentés sont
-        représentés sous la forme (x,y).</p>
-
-    <h3>Images utilisées</h3>
-
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead>
-            <tr>
-                <th>Somme de différence de carré force brute</th>
-                <th>Approche à échelles multiples</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="col-md-6">
-                    <a href="images/00106v.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00106v.jpg" class="img-responsive">
-                    </a>Force brute: R->G: (2, -5), R->B: (1, -9)
-                </td>
-                <td>
-                    <a href="images/00029u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00029u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (-16, -48), R->B: (-32, -64)
-                </td>
-
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                    <a href="images/00757v.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00757v.jpg" class="img-responsive">
-                    </a>Force brute: R->G: (-2, -3), R->B: (-5, -5)
-                </td>
-                <td>
-                    <a href="images/00087u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00087u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (-16, -48), R->B: (-48, -96)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                    <a href="images/00888v.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00888v.jpg" class="img-responsive">
-                    </a>Force brute: R->G: (0, -6), R->B: (-1, -12)
-                </td>
-                <td>
-                    <a href="images/00128u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00128u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (-16, 0), R->B: (-32, -32)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                    <a href="images/00889v.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00889v.jpg" class="img-responsive">
-                    </a>Force Brute: R->G: (-1, -3), R->B: (-3, -4)
-                </td>
-                <td>
-                    <a href="images/00237u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00237u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (0, -80), R->B: (-16, -128)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                    <a href="images/00907v.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00907v.jpg" class="img-responsive">
-                    </a>Force brute: R->G: (1, -3), R->B: (1, -6)
-                </td>
-                <td>
-                    <a href="images/00238u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00238u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (,0 -64), R->B: (0, -80)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                    <a href="images/00911v.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00911v.jpg" class="img-responsive">
-                    </a>Force brute: R->G: (1, -12), R->B: (1, -13)
-                </td>
-                <td>
-                    <a href="images/00239u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00239u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (0, -80), R->B: (0, -112)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                    <a href="images/01031v.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/01031v.jpg" class="img-responsive">
-                    </a>Force brute: R->G: (0, -3), R->B: (-2, -4)
-                </td>
-                <td>
-                    <a href="images/00240u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00240u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: 0, -112), R->B: (16, -160)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                    <a href="images/01657v.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/01657v.jpg" class="img-responsive">
-                    </a>Force brute: R->G: (0, -6), R->B: (-1, -12)
-                </td>
-                <td>
-                    <a href="images/00241u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00241u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (0, -80), R->B: (16, -128)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                    <a href="images/01880v.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/01880v.jpg" class="img-responsive">
-                    </a>Force brute: R->G: (-2, -8), R->B: (-4, -14)
-                </td>
-                <td>
-                    <a href="images/00242u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00242u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (-16, -96), R->B: (-32, -128)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                </td>
-                <td>
-                    <a href="images/00243u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00243u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (0, -64), R->B: (-224, 224)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                </td>
-                <td>
-                    <a href="images/00244u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00244u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (0, -64), R->B: (0, -96)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                </td>
-                <td>
-                    <a href="images/00245u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00245u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (16, -80), R->B: (16, -96)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                </td>
-                <td>
-                    <a href="images/00246u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00246u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (0, -96), R->B: (0, -160)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                </td>
-                <td>
-                    <a href="images/00458u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00458u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (-32, -32), R->B: (-32, -80)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                </td>
-                <td>
-                    <a href="images/00737u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00737u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (-16, -16), R->B: (-16, -32)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                </td>
-                <td>
-                    <a href="images/00822u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00822u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (0, -64), R->B: (-32, -112)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                </td>
-                <td>
-                    <a href="images/00892u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/00892u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (0, -16), R->B: (0, -32)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                </td>
-                <td>
-                    <a href="images/01043u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/01043u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (-16, -32), R->B: (-16, -16)
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-6">
-                </td>
-                <td>
-                    <a href="images/01047u.jpg" data-toggle="lightbox" data-title="" class=""
-                       data-gallery="ra">
-                        <img src="images/01047u.jpg" class="img-responsive">
-                    </a>Échelles multiple: R->G: (-16, -48), R->B: (-32, -80)
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col-md-3">
+            <a href="images/gaussian_pile0.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile0.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/gaussian_pile1.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile1.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/gaussian_pile2.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile2.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/gaussian_pile3.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile4.png" class="img-responsive">
+            </a>
+        </div>
     </div>
-    <div style="clear: both;"></div>
-    <p>Tableau de tous les déplacements:</p>
-    <style type="text/css">
-        .tg {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
 
-        .tg td {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            padding: 10px 5px;
-            border-style: solid;
-            border-width: 1px;
-            overflow: hidden;
-            word-break: normal;
-        }
+    <div class="row">
+        <div class="col-md-3">
+            <a href="images/gaussian_pile4.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile4.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/gaussian_pile5.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile5.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/gaussian_pile6.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile6.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/gaussian_pile7.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile7.png" class="img-responsive">
+            </a>
+        </div>
+    </div>
+    <h3 style="text-align: center;padding-bottom: 75px">Piles gaussiennes de l'oeuvre de Salvador Dali</h3>
 
-        .tg th {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: normal;
-            padding: 10px 5px;
-            border-style: solid;
-            border-width: 1px;
-            overflow: hidden;
-            word-break: normal;
-        }
+    <div class="row">
+        <div class="col-md-3">
+            <a href="images/laplacian_pile0.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/laplacian_pile0.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/laplacian_pile1.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/laplacian_pile1.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/laplacian_pile2.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/laplacian_pile2.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/laplacian_pile3.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/laplacian_pile4.png" class="img-responsive">
+            </a>
+        </div>
+    </div>
 
-        .tg .tg-e3zv {
-            font-weight: bold
-        }
-    </style>
-
-    <h3>Images personnelles</h3>
-    <p>Voici trois images personnelles en utilisant la somme de différence de carré avec force brute comme dans la
-        question 1. Comme les images ont été prises avec un téléphone cellulaire tenu à la main et que certaines images
-        contiennent des éléments en arrière plan qui bouge, parfois l'alignement n'est pas parfait.</p>
     <div class="row">
         <div class="col-md-4">
-            <a href="images/1_1.jpg" data-toggle="lightbox" data-title="" class=""
+            <a href="images/laplacian_pile4.png" data-toggle="lightbox" data-title="" class=""
                data-gallery="ra">
-                <img src="images/1_1.jpg" class="img-responsive">
-            </a>Force brute: R->G: (0, -1), R->B: (5, -1)
+                <img src="images/laplacian_pile4.png" class="img-responsive">
+            </a>
         </div>
         <div class="col-md-4">
-            <a href="images/2_1.jpg" data-toggle="lightbox" data-title="" class=""
+            <a href="images/laplacian_pile5.png" data-toggle="lightbox" data-title="" class=""
                data-gallery="ra">
-                <img src="images/2_1.jpg" class="img-responsive">
-            </a>Force brute: R->G: (11, -2), R->B: (-8, 2)
+                <img src="images/laplacian_pile5.png" class="img-responsive">
+            </a>
         </div>
         <div class="col-md-4">
-            <a href="images/3_1.jpg" data-toggle="lightbox" data-title="" class=""
+            <a href="images/laplacian_pile6.png" data-toggle="lightbox" data-title="" class=""
                data-gallery="ra">
-                <img src="images/3_1.jpg" class="img-responsive">
-            </a>Force brute: R->G: (2, -19), R->B: (21, -39)
+                <img src="images/laplacian_pile6.png" class="img-responsive">
+            </a>
+        </div>
+    </div>
+    <h3 style="text-align: center; padding-bottom: 75px">Piles laplaciennes de l'oeuvre de Salvador Dali</h3>
+
+    <div class="row">
+        <div class="col-md-3">
+            <a href="images/gaussian_pile_custom0.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile_custom0.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/gaussian_pile_custom1.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile_custom1.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/gaussian_pile_custom2.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile_custom2.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/gaussian_pile_custom3.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile_custom4.png" class="img-responsive">
+            </a>
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-3">
+            <a href="images/gaussian_pile_custom4.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile_custom4.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/gaussian_pile_custom5.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile_custom5.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/gaussian_pile_custom6.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile_custom6.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/gaussian_pile_custom7.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/gaussian_pile_custom7.png" class="img-responsive">
+            </a>
+        </div>
+    </div>
+    <h3 style="text-align: center;padding-bottom: 75px">Piles gaussiennes du résultat de la partie précédente</h3>
+
+    <div class="row">
+        <div class="col-md-3">
+            <a href="images/laplacian_pile_custom0.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/laplacian_pile_custom0.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/laplacian_pile_custom1.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/laplacian_pile_custom1.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/laplacian_pile_custom2.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/laplacian_pile_custom2.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="images/laplacian_pile_custom3.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/laplacian_pile_custom4.png" class="img-responsive">
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <a href="images/laplacian_pile_custom4.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/laplacian_pile_custom4.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="images/laplacian_pile_custom5.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/laplacian_pile_custom5.png" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="images/laplacian_pile_custom6.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/laplacian_pile_custom6.png" class="img-responsive">
+            </a>
+        </div>
+    </div>
+
+    <h3 style="text-align: center; padding-bottom: 75px">Piles laplaciennes du résultat de la partie précédente</h3>
+
+    <a name="Q3"></a>
+    <h2>Partie 3</h2>
+
+    <a name="Results_align"></a>
+    <h2>Mélange multirésolution</h2>
+    <p>En se fiant maintenant sur<a
+            href="http://persci.mit.edu/pub_pdfs/spline83.pdf">l'article de 1983 par Burt et Adelson</a> un spline
+        d'image est réalisé, c'est-à-dire une jonction d'image permettant de les réunir en les déformant légèrement.
+        Afin de réaliser la "Pommange", on crée des piles laplaciennes pour les deux images que nous souhaitons agencer.
+        Ensuite, on crée un masque binaire permettant de séparé l'endroit où nous souhaitons effectuer la jonction entre
+        les images. En appliquant l'équation suivante, il est possible d'ensuite additionner les différentes images
+        résultantes créées afin d'obtenir la "pommange".
+    </p>
+        $$ LS = GR · LA + LB ·(1 − GR)$$
+    <p>où $ LS $ sont les image résultantes, $ GR $ et $ (1-GR) $ sont les masques
+        appliqués et $ LA $ et $ LB $ les piles laplaciennes.</p>
+    <p>Ensuite, il suffit d'additionner les différents $ LS $ afin d'obtenir notre image multirésolution.</p>
+
+      <div class="row">
+        <div class="col-md-6">
+            <a href="images/part3/pommange.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/part3/pommange.png" class="img-responsive">
+            </a>
+        </div>
+          <div class="col-md-6">
+            <a href="images/part3/Danian.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/part3/Danian.png" class="img-responsive">
+            </a>
+        </div>
+          </div>
+
+
+    <p>Le code afin de découper les masques personnalisables a été implémentés mais les tests afin de générer des images multirésolutions personnelles n'ont pas été complétés par manque de temps.</p>
 
     <footer>Jean-Michel Provencher - 2017</footer>
 </div> <!-- /container -->
@@ -479,13 +587,3 @@
 </body>
 </html>
 
-source images :
-
-donald trump http://american3rdposition.com/wp-content/uploads/donald-trump-portrait.jpg
-hillary : https://s-media-cache-ak0.pinimg.com/564x/ac/50/54/ac505457a827800802d6f708ae73ea36.jpg
-julian http://www.patriots.com/sites/patriots.com/files/styles/312x312/public/512x512-2014_0014_edelman_julian.png?itok=AGLgAMjq&timestamp=1439435952
-danny http://www.patriots.com/sites/patriots.com/files/styles/312x312/public/2016_amendola_headshot_0.png?itok=lLZdR2Gh&timestamp=1464728930
-tom http://cdn.abclocal.go.com/content/kgo/images/cms/888907_1280x720.jpg
-lady http://s3.india.com/wp-content/uploads/2016/01/lady-gaga.jpg
-justin http://pm.gc.ca/sites/pm/files/media/ministers/pm_trudeau_230x306_v3.jpg
-jeff http://vision.gel.ulaval.ca/~jflalonde/projects/compphototutorial/img/headshot-jflalonde-300.jpg
