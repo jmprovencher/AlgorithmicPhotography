@@ -1,3 +1,5 @@
+# Usage : Press ESC when you are done taking points, press SPACE to remove the last point clicked.
+
 import argparse
 import cv2
 import numpy as np
@@ -26,7 +28,7 @@ args = vars(ap.parse_args())
 
 # load the image, clone it, and setup the mouse callback function
 
-image = imutils.resize(cv2.imread(args["image"]), width=800)
+image = imutils.resize(cv2.imread(args["image"]), width=810)
 current_image = image.copy()
 while True:
     cv2.imshow("image", current_image)
@@ -41,8 +43,9 @@ while True:
     elif (key == 27):
         break;
 
-file = open("output.txt", "w")
-[file.write(str(pt) + "\n") for pt in refPt]
+filename = args["image"]
+file = open(filename[0:filename.find('.')] + ".txt", "w")
+[file.write(str(pt[0]) + " " + str(pt[1]) + "\n") for pt in refPt]
 file.close()
 
 # close all open windows
