@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Photographie Algorithmique - TP3 - Jean-Michel Provencher</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], equationNumbers: { autoNumber: "AMS" }}
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Photographie Algorithmique - TP3</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#intro">Intro</a></li>
+                <li><a href="#Q0">Partie A</a></li>
+                <li><a href="#Q1">Partie B</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Morphage de visages</h1>
+        <p>Création et assemblage d'images avec algorithme de morphage</p>
+    </div>
+</div>
+
+<a name="intro"></a>
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Algorithme de morphage</h2>
+            <p>Lors de ce travail, il sera question d'implémenter un algorithme de morphage de visage afin de pouvoir
+                notamment créer des séquences vidéos de morphage entre deux visages ainsi que la création d'image
+                d'humains "moyens".</p>
+            <img style="max-width: 100%;max-height: 300px"
+                 src="images/jm_to_female.png"/>
+            <p>Morphage de mon visage vers une moyenne de visage féminins</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Description du projet</h2>
+            <p>Le but du projet est de créer des images assemblées à partir de deux images différentes</p>
+            <p>Afin d'y parvenir, il sera nécessaire de générer des points de référence, calculer des triangulations et
+                effectuer des transformations affines sur ces triangles.</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Code</h2>
+            <p>Le code est disponible dans l'archive dans le dossier code(<a
+                    href="../code/face_landmark_detection.py">Algorithme de détection de visage</a>,<a
+                    href="../code/faceMorph.py">Morphage de visage</a>, <a href="../code/meanVisage.py">Moyenne des
+                visages</a>,<a
+                    href="../code/utils.py">Utilitaires</a>)
+        </div>
+    </div>
+
+    <hr>
+
+    <a name="Q0"></a>
+    <h2>Partie A </h2>
+
+    <p>Dans le cadre de la partie, il était demandé de générer des séquences vidéos de morphage entre deux images. Pour
+        réaliser le tout, il est tout d'abord nécessaire de créer des points de référence dans les deux images à
+        assembler. Une fois les points de contrôles en main, il est maintenant important de créer des triangulations sur
+        la moyenne des points de contrôles des deux images.</p>
+
+    <p>Maintenant que les triangulations sont calculées, il est nécessaire d'effectuer une transformation affine sur
+        chacun des triangles trouvés. Les paramètres Warp Frac et Dissolve Frac permettent ensuite de contrôler le
+        niveau de fondue et le niveau de transformation de chaque image.</p>
+
+    <p>Grâce à ces différentes étapes, il est ensuite possible de générer une séquence vidéo du morphage en créant une
+        série de morphage entre les deux visages en modifiant peu à peu les paramètres <i>Warp Frac</i> et <i>Dissolve
+            Frac</i> afin d'obtenir des images ressemblant de plus en plus à l'image de destination.</p>
+
+    <h2>Résultats des séquences vidéos</h2>
+    <p>Les séquences vidéos sont disponible dans le dossier video</p>
+
+
+    <a name="Q1"></a>
+    <h2>Partie B</h2>
+
+    <p>Tout d'abord, dans cette partie, il est demandé de calculer le visage moyen à partir des images des étudiants de
+        la classe, puis, à partir des images d'une banque d'images.</p>
+    <p>Afin de réaliser cette tâche, on utilise tout d'abord le detecteur de visage fourni afin de trouver les
+        différents points de référence pour chaque image. Ensuite, on calcule une moyenne pour chacun de ces points de
+        référence afin d'obtenir une matrice de points moyens de référence pour le visage. Après cela, il suffit
+        d'utiliser ce qui a été réalisé dans la partie A afin de morpher complétement chaque visage vers les points de
+        références moyens, en s'assurant d'avoir bien entendu le paramètre Warp Frac à 1 pour déformer complètement le
+        visage vers le point de référencem moyen.</p>
+
+    <p>Finalement, il faut additionner toutes les images morphées puis divisée l'image résultante par le nombre d'images
+        calculées. Ainsi, on obtient le visage moyen d'une banque d'image. Le même processus est répéter pour les
+        visages moyens hommes et femmes en s'assurant de recalculer les images appropriées</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/mean_visage_form_student.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/mean_visage_form_student.png" class="img-responsive">
+            </a>La forme du visage moyen obtenue avec les points que mes camarades étudiants ont sélectionnés
+        </div>
+        <div class="col-md-6">
+            <a href="images/mean_visage_student.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/mean_visage_student.png" class="img-responsive">
+            </a>Le visage moyen obtenu avec les points que mes camarades étudiants ont sélectionnés
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/mean_visage_form_detector.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/mean_visage_form_detector.png" class="img-responsive">
+            </a>La forme du visage moyen obtenue avec les points trouvés par le détecteur dlib
+        </div>
+        <div class="col-md-6">
+            <a href="images/mean_visage.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/mean_visage.png" class="img-responsive">
+            </a>Le visage moyen avec les points trouvés par le détecteur dlib
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/mean_visage_form_utrecht.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/mean_visage_form_utrecht.png" class="img-responsive">
+            </a>La forme du visage moyen obtenue avec les points trouvés par le détecteur dlib
+        </div>
+        <div class="col-md-6">
+            <a href="images/mean_visage_utrecht.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/mean_visage_utrecht.png" class="img-responsive">
+            </a>Le visage moyen obtenu avec les points trouvés par le détecteur dlib
+        </div>
+    </div>
+
+        <h2>Masculinisation et féminisation du visage</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/mean_visage_utrecht_male.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/mean_visage_utrecht_male.png" class="img-responsive">
+            </a>Visage masculin moyen
+        </div>
+        <div class="col-md-6">
+            <a href="images/jm_to_male.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/jm_to_male.png" class="img-responsive">
+            </a>Mon visage morphé vers le visage masculin moyen
+        </div>
+    </div>
+
+        <div class="row">
+        <div class="col-md-6">
+            <a href="images/mean_visage_utrecht_female.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/mean_visage_utrecht_female.png" class="img-responsive">
+            </a>Visage féminin moyen
+        </div>
+        <div class="col-md-6">
+            <a href="images/jm_to_female.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/jm_to_female.png" class="img-responsive">
+            </a>Mon visage morphé vers le visage féminin moyen
+        </div>
+    </div>
+
+    <p>Les images ont été morphées avec un dissolve frac égal à zéro car les résultats étaient plus esthétique.</p>
+    <footer>Jean-Michel Provencher - 2017</footer>
+</div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        var dir = "images/";
+        var fileextension = ".jpg";
+        $.ajax({
+            //This will retrieve the contents of the folder if the folder is configured as 'browsable'
+            url: dir,
+            success: function (data) {
+                //List all .png file names in the page
+                console.log(data)
+            }
+        });
+
+
+        $('.ekko-lightbox-container img').css('max-height', $(window).height());
+        // delegate calls to data-toggle="lightbox"
+        $(document).delegate('*[data-toggle="lightbox"]:not([data-gallery="navigateTo"])', 'click', function (event) {
+            event.preventDefault();
+            return $(this).ekkoLightbox({
+                onNavigate: function (direction, itemIndex) {
+                    if (window.console) {
+                        return console.log('Navigating ' + direction + '. Current item: ' + itemIndex);
+                    }
+                }
+                gallery_parent_selector: 'body'
+            });
+        });
+    });
+</script>
+</body>
+</html>
+
