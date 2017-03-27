@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Photographie Algorithmique - TP4 - Jean-Michel Provencher</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], equationNumbers: { autoNumber: "AMS" }}
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Photographie Algorithmique - TP4</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#intro">Réchauffement</a></li>
+                <li><a href="#Q0">Partie 1</a></li>
+                <li><a href="#Q1">Partie 2</a></li>
+                <li><a href="#Q2">Partie 3</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Assemblage de photos</h1>
+        <p>Création et assemblage de panoramas</p>
+    </div>
+</div>
+
+<a name="intro"></a>
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Algorithme de morphage</h2>
+            <p>Lors de ce travail, il sera question d'implémenter différents algorithmes comme Ransac et ANMS ainsi que
+                des opérations sur des matrics d'homographie afin de créer des panoramas.</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Description du projet</h2>
+            <p>Le but du projet est de créer des panoramas assemblées à partir de plusieurs images différentes</p>
+            <p>Afin d'y parvenir, il sera nécessaire de générer des matrices d'homographies à partir de points,
+                appliquer le résultat de cette homographie à une image et à placer cette image dans une image générale
+                du panorama.</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Code</h2>
+            <p>Le code est disponible dans l'archive dans le dossier code(<a
+                    href="../code/appliqueTransformation.py">Fonction appliqueTransformation</a>,<a
+                    href="../code/calculerHomographie.py">Fonction calculerHomographie</a>,
+                <a href="../code/drawPoints.py">Fonction DrawPoints</a>,<a
+                        href="../code/gatherPoints.py">Fonction gatherPoints</a>,<a
+                        href="../code/main_rechauffement.py">Main réchauffement</a>,<a
+                        href="../code/main_manuelle.py">Main appariement manuel</a>,<a
+                        href="../code/main_automatique.py">Main appariement automatique</a>)
+        </div>
+    </div>
+
+    <hr>
+
+    <a name="Q0"></a>
+    <h2>Partie 0 </h2>
+
+    <p>Dans le cadre de la partie 0 , il est demandé d'appliquer la transformation à l'image de Jean-Francois Lalonde à
+        partir d'une homographie donnée. Le résultat est le suivant:</p>
+
+    <div class="row">
+        <div class="col-md-12">
+            <a href="images/JFLalonde_transformed.png" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/JFLalonde_transformed.png" class="img-responsive">
+            </a>Image de Jean-Francois Lalonde transformée
+        </div>
+
+    </div>
+
+
+    <a name="Q1"></a>
+    <h2>Partie 1</h2>
+
+    <p>Tout d'abord, dans cette partie, il est demandé d'implenter la fonction calculerHomographie permettant de trouver
+        une matrice d'homographie à partir de différents points correspondants dans deux images différentes</p>
+    <p>Une fois les matrices d'homographies calculées pour les images 1 et 3 avec l'image 2, il suffit d'appliquer les
+        transformations homographiques à ces deux images. Grâce au offset retourné par la fonction, on peut ensuite
+        calculer la taille de l'image totale résultante et aller placer les différentes images à leurs offsets
+        respectifs</p>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/manuelle1.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/manuelle1.jpg" class="img-responsive">
+            </a>Panorama 1
+        </div>
+        <div class="col-md-6">
+            <a href="images/manuelle1_points.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/manuelle1_points.jpg" class="img-responsive">
+            </a>Panorama 1 obtenus avec points illustrés
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/manuelle2.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/manuelle2.jpg" class="img-responsive">
+            </a>Panorama 2
+        </div>
+        <div class="col-md-6">
+            <a href="images/manuelle2_points.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/manuelle2_points.jpg" class="img-responsive">
+            </a>Panorama 2 obtenus avec points illustrés
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/manuelle3.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/manuelle3.jpg" class="img-responsive">
+            </a>Panorama 3
+        </div>
+        <div class="col-md-6">
+            <a href="images/manuelle3_points.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/manuelle3_points.jpg" class="img-responsive">
+            </a>Panorama 3 obtenus avec points illustrés
+        </div>
+    </div>
+
+    <p>Les résultats obtenus ne sont pas excellent à la jonction entre les images car aucune technique n'a été utilisé
+        pour adoucir le résultat là où les images se chevauchent. Il aurait été nécessaire de faire une moyenne des
+        images superposées à ces endroits. </p>
+
+    <a name="Q2"></a>
+    <h2>Partie 2</h2>
+
+    <p>Tout d'abord, dans cette partie, il est nécessaire d'implémenter le détecteur Harris afin de trouver des
+        caractéristiques de coin dans l'image. Une fois ces caractéristiques trouvées, on extrait un descripteur sur
+        chacunes des caractéristiques trouvées précèdemment. Par la suite, il faut apparier ces descripteurs entre
+        les deux images en effectuant un calcul de distance. Finalement, on implémente RANSAC pour effectuer une
+        homographie sur 4 points comme dans la partie précèdante.</p>
+    <p>Encore une fois, la technique utilisée pour déplacer les images dans l'image résultante était d'utiliser une
+        image centrale comme image de référence (celle-ci n'étant jamais transformée) puis de transformer les autres
+        images tours à tours par rapport à celle-ci. Lorsque certaines images ne touchait pas directement à l'image
+        centrale comme dans le cas du pont de San francisco, j'ai effectué des transformations en cascade avec d'obtenir
+        la bonne image résultante.</p>
+
+
+    <h2>Appariement automatique</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/golden_gate.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/golden_gate.jpg" class="img-responsive">
+            </a>Panorama 1
+        </div>
+        <div class="col-md-6">
+            <a href="images/golden_gate_points.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/golden_gate_points.jpg" class="img-responsive">
+            </a>Panorama 1 obtenus avec points illustrés
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/pont.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/pont.jpg" class="img-responsive">
+            </a>Panorama 2
+        </div>
+        <div class="col-md-6">
+            <a href="images/pont_points.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/pont_points.jpg" class="img-responsive">
+            </a>Panorama 2 obtenus avec points illustrés
+        </div>
+    </div>
+
+        <div class="row">
+        <div class="col-md-6">
+            <a href="images/plaines.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/plaines.jpg" class="img-responsive">
+            </a>Panorama 3
+        </div>
+        <div class="col-md-6">
+            <a href="images/plaines_points.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/plaines_points.jpg" class="img-responsive">
+            </a>Panorama 3 obtenus avec points illustrés
+        </div>
+    </div>
+    <p>Encore une fois, comme au numéro précèdant, aucune technique n'a été utilisée afin de gérer les intersections
+        entre les images. Ainsi des coupures noires apparaissent à certains endroits dans les images. Il aurait été
+        intéressant d'utiliser un masque binaire afin de masque ces régions avant d'assemble le panorama.
+    </p>
+    <p>De plus, l'algorithme permettant de calculer la taille d'image finale résultante semble parfois causé problème
+        comme on peut observer dans l'image du pont de San Francisco, le nombre de colonnes calculées pour l'image
+        résultante est trop grand.</p>
+
+    <a name="Q3"></a>
+    <h2>Partie 3</h2>
+    <h2>Mes photos</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="images/test1.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/test1.jpg" class="img-responsive">
+            </a>Image gauche
+        </div>
+        <div class="col-md-4">
+            <a href="images/test2.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/test2.jpg" class="img-responsive">
+            </a>Image centrale
+        </div>
+        <div class="col-md-4">
+            <a href="images/test3.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/test3.jpg" class="img-responsive">
+            </a>Image droite
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/perso1.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/perso1.jpg" class="img-responsive">
+            </a>Panorama 1 personnel
+        </div>
+        <div class="col-md-6">
+            <a href="images/perso1_points.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/perso1_points.jpg" class="img-responsive">
+            </a>Panorama1 personnel avec points illustrés
+        </div>
+    </div>
+
+        <div class="row">
+        <div class="col-md-4">
+            <a href="images/plt0.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/plt0.jpg" class="img-responsive">
+            </a>Image gauche
+        </div>
+        <div class="col-md-4">
+            <a href="images/plt1.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/plt1.jpg" class="img-responsive">
+            </a>Image centrale
+        </div>
+        <div class="col-md-4">
+            <a href="images/plt2.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/plt2.jpg" class="img-responsive">
+            </a>Image droite
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="images/plt.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/plt.jpg" class="img-responsive">
+            </a>Panorama 2 personnel
+        </div>
+        <div class="col-md-6">
+            <a href="images/plt_points.jpg" data-toggle="lightbox" data-title="" class=""
+               data-gallery="ra">
+                <img src="images/plt_points.jpg" class="img-responsive">
+            </a>Panorama 2 personnel avec points illustrés
+        </div>
+    </div>
+
+
+    <footer>Jean-Michel Provencher - 2017</footer>
+</div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        var dir = "images/";
+        var fileextension = ".jpg";
+        $.ajax({
+            //This will retrieve the contents of the folder if the folder is configured as 'browsable'
+            url: dir,
+            success: function (data) {
+                //List all .png file names in the page
+                console.log(data)
+            }
+        });
+
+
+        $('.ekko-lightbox-container img').css('max-height', $(window).height());
+        // delegate calls to data-toggle="lightbox"
+        $(document).delegate('*[data-toggle="lightbox"]:not([data-gallery="navigateTo"])', 'click', function (event) {
+            event.preventDefault();
+            return $(this).ekkoLightbox({
+                onNavigate: function (direction, itemIndex) {
+                    if (window.console) {
+                        return console.log('Navigating ' + direction + '. Current item: ' + itemIndex);
+                    }
+                }
+                gallery_parent_selector: 'body'
+            });
+        });
+    });
+</script>
+</body>
+</html>
+
